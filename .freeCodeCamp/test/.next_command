@@ -1,0 +1,456 @@
+[ -d "$HOME/bin" ]
+[ -d "$HOME/.local/bin" ]
+PATH="$HOME/.local/bin:$PATH"
+[ -e /home/gitpod/.nix-profile/etc/profile.d/nix.sh ]
+. /home/gitpod/.nix-profile/etc/profile.d/nix.sh
+[[ -s "$HOME/.rvm/scripts/rvm" ]]
+source "$HOME/.rvm/scripts/rvm"
+[[ -n $SSH_CONNECTION ]]
+'/ide/node' -p '"f1e747a3974a" + JSON.stringify(process.env) + "f1e747a3974a"'
+builtin unset VSCODE_INJECTION
+[ -z "$VSCODE_SHELL_INTEGRATION" ]
+[ -n "${VSCODE_ENV_REPLACE:-}" ]
+[ -n "${VSCODE_ENV_PREPEND:-}" ]
+[ -n "${VSCODE_ENV_APPEND:-}" ]
+__vsc_regex_environment="^CYGWIN*|MINGW*|MSYS*"
+[[ "$(uname -s)" =~ $__vsc_regex_environment ]]
+__vsc_is_windows=0
+__vsc_regex_histcontrol=".*(erasedups|ignoreboth|ignoredups).*"
+[[ "$HISTCONTROL" =~ $__vsc_regex_histcontrol ]]
+__vsc_history_verify=1
+builtin unset __vsc_regex_environment
+builtin unset __vsc_regex_histcontrol
+__vsc_initialized=0
+__vsc_original_PS1="$PS1"
+__vsc_original_PS2="$PS2"
+__vsc_custom_PS1=""
+__vsc_custom_PS2=""
+__vsc_in_command_execution="1"
+__vsc_current_command=""
+__vsc_nonce="$VSCODE_NONCE"
+unset VSCODE_NONCE
+__vsc_stable="$VSCODE_STABLE"
+unset VSCODE_STABLE
+[ "$__vsc_stable" = "0" ]
+[ -n "$STARSHIP_SESSION_KEY" ]
+[ -n "$POSH_SESSION_ID" ]
+builtin printf '\e]633;P;HasRichCommandDetection=True\a'
+[[ -n "${bash_preexec_imported:-}" ]]
+__vsc_dbg_trap="$(__vsc_get_trap DEBUG)"
+[[ -z "$__vsc_dbg_trap" ]]
+[[ "$__vsc_dbg_trap" != '__vsc_preexec "$_"' && "$__vsc_dbg_trap" != '__vsc_preexec_all "$_"' ]]
+trap '__vsc_preexec_all "$_"' DEBUG
+__vsc_original_prompt_command=${PROMPT_COMMAND:-}
+psql --username=freecodecamp --dbname=postgres
+builtin unset VSCODE_INJECTION
+[ -z "$VSCODE_SHELL_INTEGRATION" ]
+[ -n "${VSCODE_ENV_REPLACE:-}" ]
+[ -n "${VSCODE_ENV_PREPEND:-}" ]
+[ -n "${VSCODE_ENV_APPEND:-}" ]
+__vsc_regex_environment="^CYGWIN*|MINGW*|MSYS*"
+[[ "$(uname -s)" =~ $__vsc_regex_environment ]]
+__vsc_is_windows=0
+__vsc_regex_histcontrol=".*(erasedups|ignoreboth|ignoredups).*"
+[[ "$HISTCONTROL" =~ $__vsc_regex_histcontrol ]]
+__vsc_history_verify=1
+builtin unset __vsc_regex_environment
+builtin unset __vsc_regex_histcontrol
+__vsc_initialized=0
+__vsc_original_PS1="$PS1"
+__vsc_original_PS2="$PS2"
+__vsc_custom_PS1=""
+__vsc_custom_PS2=""
+__vsc_in_command_execution="1"
+__vsc_current_command=""
+__vsc_nonce="$VSCODE_NONCE"
+unset VSCODE_NONCE
+__vsc_stable="$VSCODE_STABLE"
+unset VSCODE_STABLE
+[ "$__vsc_stable" = "0" ]
+[ -n "$STARSHIP_SESSION_KEY" ]
+[ -n "$POSH_SESSION_ID" ]
+builtin printf '\e]633;P;HasRichCommandDetection=True\a'
+[[ -n "${bash_preexec_imported:-}" ]]
+__vsc_dbg_trap="$(__vsc_get_trap DEBUG)"
+[[ -z "$__vsc_dbg_trap" ]]
+[[ "$__vsc_dbg_trap" != '__vsc_preexec "$_"' && "$__vsc_dbg_trap" != '__vsc_preexec_all "$_"' ]]
+trap '__vsc_preexec_all "$_"' DEBUG
+__vsc_original_prompt_command=${PROMPT_COMMAND:-}
+chmod +x insert_data.sh queries.sh
+./insert_data.sh
+./insert_data.sh
+./insert_data.sh
+./insert_data.sh
+./insert_data.sh
+./insert_data.sh
+./insert_data.sh
+./insert_data.sh
+./insert_data.sh
+echo $PWD >> /workspace/project/.freeCodeCamp/test/.cwd
+history -a
+echo $PWD >> /workspace/project/.freeCodeCamp/test/.cwd
+history -a
+[[ $1 == "test" ]]
+PSQL="psql --username=freecodecamp --dbname=worldcup -t --no-align -c"
+echo $PWD >> /workspace/project/.freeCodeCamp/test/.cwd
+history -a
+echo $PWD >> /workspace/project/.freeCodeCamp/test/.cwd
+history -a
+echo $PWD >> /workspace/project/.freeCodeCamp/test/.cwd
+history -a
+$PSQL "TRUNCATE TABLE games, teams RESTART IDENTITY CASCADE" > /dev/null
+echo $PWD >> /workspace/project/.freeCodeCamp/test/.cwd
+history -a
+echo $PWD >> /workspace/project/.freeCodeCamp/test/.cwd
+history -a
+echo $PWD >> /workspace/project/.freeCodeCamp/test/.cwd
+history -a
+read -r header
+IFS="," read -r YEAR ROUND WINNER OPPONENT WINNER_GOALS OPPONENT_GOALS
+ROUND=${ROUND//\'/\'\'}
+WINNER=${WINNER//\'/\'\'}
+OPPONENT=${OPPONENT//\'/\'\'}
+WINNER_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$WINNER'")
+[[ -z "$WINNER_ID" ]]
+$PSQL "INSERT INTO teams(name) VALUES('$WINNER')" > /dev/null
+WINNER_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$WINNER'")
+OPPONENT_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$OPPONENT'")
+[[ -z "$OPPONENT_ID" ]]
+$PSQL "INSERT INTO teams(name) VALUES('$OPPONENT')" > /dev/null
+OPPONENT_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$OPPONENT'")
+$PSQL "INSERT INTO games(year, round, winner_id, opponent_id, winner_goals, opponent_goals) VALUES($YEAR, '$ROUND', $WINNER_ID, $OPPONENT_ID, $WINNER_GOALS, $OPPONENT_GOALS)" > /dev/null
+IFS="," read -r YEAR ROUND WINNER OPPONENT WINNER_GOALS OPPONENT_GOALS
+ROUND=${ROUND//\'/\'\'}
+WINNER=${WINNER//\'/\'\'}
+OPPONENT=${OPPONENT//\'/\'\'}
+WINNER_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$WINNER'")
+[[ -z "$WINNER_ID" ]]
+$PSQL "INSERT INTO teams(name) VALUES('$WINNER')" > /dev/null
+WINNER_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$WINNER'")
+OPPONENT_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$OPPONENT'")
+[[ -z "$OPPONENT_ID" ]]
+$PSQL "INSERT INTO teams(name) VALUES('$OPPONENT')" > /dev/null
+OPPONENT_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$OPPONENT'")
+$PSQL "INSERT INTO games(year, round, winner_id, opponent_id, winner_goals, opponent_goals) VALUES($YEAR, '$ROUND', $WINNER_ID, $OPPONENT_ID, $WINNER_GOALS, $OPPONENT_GOALS)" > /dev/null
+IFS="," read -r YEAR ROUND WINNER OPPONENT WINNER_GOALS OPPONENT_GOALS
+ROUND=${ROUND//\'/\'\'}
+WINNER=${WINNER//\'/\'\'}
+OPPONENT=${OPPONENT//\'/\'\'}
+WINNER_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$WINNER'")
+[[ -z "$WINNER_ID" ]]
+OPPONENT_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$OPPONENT'")
+[[ -z "$OPPONENT_ID" ]]
+$PSQL "INSERT INTO games(year, round, winner_id, opponent_id, winner_goals, opponent_goals) VALUES($YEAR, '$ROUND', $WINNER_ID, $OPPONENT_ID, $WINNER_GOALS, $OPPONENT_GOALS)" > /dev/null
+IFS="," read -r YEAR ROUND WINNER OPPONENT WINNER_GOALS OPPONENT_GOALS
+ROUND=${ROUND//\'/\'\'}
+WINNER=${WINNER//\'/\'\'}
+OPPONENT=${OPPONENT//\'/\'\'}
+WINNER_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$WINNER'")
+[[ -z "$WINNER_ID" ]]
+OPPONENT_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$OPPONENT'")
+[[ -z "$OPPONENT_ID" ]]
+$PSQL "INSERT INTO games(year, round, winner_id, opponent_id, winner_goals, opponent_goals) VALUES($YEAR, '$ROUND', $WINNER_ID, $OPPONENT_ID, $WINNER_GOALS, $OPPONENT_GOALS)" > /dev/null
+IFS="," read -r YEAR ROUND WINNER OPPONENT WINNER_GOALS OPPONENT_GOALS
+ROUND=${ROUND//\'/\'\'}
+WINNER=${WINNER//\'/\'\'}
+OPPONENT=${OPPONENT//\'/\'\'}
+WINNER_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$WINNER'")
+[[ -z "$WINNER_ID" ]]
+OPPONENT_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$OPPONENT'")
+[[ -z "$OPPONENT_ID" ]]
+$PSQL "INSERT INTO teams(name) VALUES('$OPPONENT')" > /dev/null
+OPPONENT_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$OPPONENT'")
+$PSQL "INSERT INTO games(year, round, winner_id, opponent_id, winner_goals, opponent_goals) VALUES($YEAR, '$ROUND', $WINNER_ID, $OPPONENT_ID, $WINNER_GOALS, $OPPONENT_GOALS)" > /dev/null
+IFS="," read -r YEAR ROUND WINNER OPPONENT WINNER_GOALS OPPONENT_GOALS
+ROUND=${ROUND//\'/\'\'}
+WINNER=${WINNER//\'/\'\'}
+OPPONENT=${OPPONENT//\'/\'\'}
+WINNER_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$WINNER'")
+[[ -z "$WINNER_ID" ]]
+OPPONENT_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$OPPONENT'")
+[[ -z "$OPPONENT_ID" ]]
+$PSQL "INSERT INTO teams(name) VALUES('$OPPONENT')" > /dev/null
+OPPONENT_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$OPPONENT'")
+$PSQL "INSERT INTO games(year, round, winner_id, opponent_id, winner_goals, opponent_goals) VALUES($YEAR, '$ROUND', $WINNER_ID, $OPPONENT_ID, $WINNER_GOALS, $OPPONENT_GOALS)" > /dev/null
+IFS="," read -r YEAR ROUND WINNER OPPONENT WINNER_GOALS OPPONENT_GOALS
+ROUND=${ROUND//\'/\'\'}
+WINNER=${WINNER//\'/\'\'}
+OPPONENT=${OPPONENT//\'/\'\'}
+WINNER_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$WINNER'")
+[[ -z "$WINNER_ID" ]]
+OPPONENT_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$OPPONENT'")
+[[ -z "$OPPONENT_ID" ]]
+$PSQL "INSERT INTO teams(name) VALUES('$OPPONENT')" > /dev/null
+OPPONENT_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$OPPONENT'")
+$PSQL "INSERT INTO games(year, round, winner_id, opponent_id, winner_goals, opponent_goals) VALUES($YEAR, '$ROUND', $WINNER_ID, $OPPONENT_ID, $WINNER_GOALS, $OPPONENT_GOALS)" > /dev/null
+IFS="," read -r YEAR ROUND WINNER OPPONENT WINNER_GOALS OPPONENT_GOALS
+ROUND=${ROUND//\'/\'\'}
+WINNER=${WINNER//\'/\'\'}
+OPPONENT=${OPPONENT//\'/\'\'}
+WINNER_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$WINNER'")
+[[ -z "$WINNER_ID" ]]
+OPPONENT_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$OPPONENT'")
+[[ -z "$OPPONENT_ID" ]]
+$PSQL "INSERT INTO teams(name) VALUES('$OPPONENT')" > /dev/null
+OPPONENT_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$OPPONENT'")
+$PSQL "INSERT INTO games(year, round, winner_id, opponent_id, winner_goals, opponent_goals) VALUES($YEAR, '$ROUND', $WINNER_ID, $OPPONENT_ID, $WINNER_GOALS, $OPPONENT_GOALS)" > /dev/null
+IFS="," read -r YEAR ROUND WINNER OPPONENT WINNER_GOALS OPPONENT_GOALS
+ROUND=${ROUND//\'/\'\'}
+WINNER=${WINNER//\'/\'\'}
+OPPONENT=${OPPONENT//\'/\'\'}
+WINNER_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$WINNER'")
+[[ -z "$WINNER_ID" ]]
+OPPONENT_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$OPPONENT'")
+[[ -z "$OPPONENT_ID" ]]
+$PSQL "INSERT INTO teams(name) VALUES('$OPPONENT')" > /dev/null
+OPPONENT_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$OPPONENT'")
+$PSQL "INSERT INTO games(year, round, winner_id, opponent_id, winner_goals, opponent_goals) VALUES($YEAR, '$ROUND', $WINNER_ID, $OPPONENT_ID, $WINNER_GOALS, $OPPONENT_GOALS)" > /dev/null
+IFS="," read -r YEAR ROUND WINNER OPPONENT WINNER_GOALS OPPONENT_GOALS
+ROUND=${ROUND//\'/\'\'}
+WINNER=${WINNER//\'/\'\'}
+OPPONENT=${OPPONENT//\'/\'\'}
+WINNER_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$WINNER'")
+[[ -z "$WINNER_ID" ]]
+OPPONENT_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$OPPONENT'")
+[[ -z "$OPPONENT_ID" ]]
+$PSQL "INSERT INTO teams(name) VALUES('$OPPONENT')" > /dev/null
+OPPONENT_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$OPPONENT'")
+$PSQL "INSERT INTO games(year, round, winner_id, opponent_id, winner_goals, opponent_goals) VALUES($YEAR, '$ROUND', $WINNER_ID, $OPPONENT_ID, $WINNER_GOALS, $OPPONENT_GOALS)" > /dev/null
+IFS="," read -r YEAR ROUND WINNER OPPONENT WINNER_GOALS OPPONENT_GOALS
+ROUND=${ROUND//\'/\'\'}
+WINNER=${WINNER//\'/\'\'}
+OPPONENT=${OPPONENT//\'/\'\'}
+WINNER_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$WINNER'")
+[[ -z "$WINNER_ID" ]]
+OPPONENT_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$OPPONENT'")
+[[ -z "$OPPONENT_ID" ]]
+$PSQL "INSERT INTO teams(name) VALUES('$OPPONENT')" > /dev/null
+OPPONENT_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$OPPONENT'")
+$PSQL "INSERT INTO games(year, round, winner_id, opponent_id, winner_goals, opponent_goals) VALUES($YEAR, '$ROUND', $WINNER_ID, $OPPONENT_ID, $WINNER_GOALS, $OPPONENT_GOALS)" > /dev/null
+IFS="," read -r YEAR ROUND WINNER OPPONENT WINNER_GOALS OPPONENT_GOALS
+ROUND=${ROUND//\'/\'\'}
+WINNER=${WINNER//\'/\'\'}
+OPPONENT=${OPPONENT//\'/\'\'}
+WINNER_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$WINNER'")
+[[ -z "$WINNER_ID" ]]
+OPPONENT_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$OPPONENT'")
+[[ -z "$OPPONENT_ID" ]]
+$PSQL "INSERT INTO teams(name) VALUES('$OPPONENT')" > /dev/null
+OPPONENT_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$OPPONENT'")
+$PSQL "INSERT INTO games(year, round, winner_id, opponent_id, winner_goals, opponent_goals) VALUES($YEAR, '$ROUND', $WINNER_ID, $OPPONENT_ID, $WINNER_GOALS, $OPPONENT_GOALS)" > /dev/null
+IFS="," read -r YEAR ROUND WINNER OPPONENT WINNER_GOALS OPPONENT_GOALS
+ROUND=${ROUND//\'/\'\'}
+WINNER=${WINNER//\'/\'\'}
+OPPONENT=${OPPONENT//\'/\'\'}
+WINNER_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$WINNER'")
+[[ -z "$WINNER_ID" ]]
+OPPONENT_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$OPPONENT'")
+[[ -z "$OPPONENT_ID" ]]
+$PSQL "INSERT INTO teams(name) VALUES('$OPPONENT')" > /dev/null
+OPPONENT_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$OPPONENT'")
+$PSQL "INSERT INTO games(year, round, winner_id, opponent_id, winner_goals, opponent_goals) VALUES($YEAR, '$ROUND', $WINNER_ID, $OPPONENT_ID, $WINNER_GOALS, $OPPONENT_GOALS)" > /dev/null
+IFS="," read -r YEAR ROUND WINNER OPPONENT WINNER_GOALS OPPONENT_GOALS
+ROUND=${ROUND//\'/\'\'}
+WINNER=${WINNER//\'/\'\'}
+OPPONENT=${OPPONENT//\'/\'\'}
+WINNER_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$WINNER'")
+[[ -z "$WINNER_ID" ]]
+OPPONENT_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$OPPONENT'")
+[[ -z "$OPPONENT_ID" ]]
+$PSQL "INSERT INTO teams(name) VALUES('$OPPONENT')" > /dev/null
+OPPONENT_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$OPPONENT'")
+$PSQL "INSERT INTO games(year, round, winner_id, opponent_id, winner_goals, opponent_goals) VALUES($YEAR, '$ROUND', $WINNER_ID, $OPPONENT_ID, $WINNER_GOALS, $OPPONENT_GOALS)" > /dev/null
+IFS="," read -r YEAR ROUND WINNER OPPONENT WINNER_GOALS OPPONENT_GOALS
+ROUND=${ROUND//\'/\'\'}
+WINNER=${WINNER//\'/\'\'}
+OPPONENT=${OPPONENT//\'/\'\'}
+WINNER_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$WINNER'")
+[[ -z "$WINNER_ID" ]]
+OPPONENT_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$OPPONENT'")
+[[ -z "$OPPONENT_ID" ]]
+$PSQL "INSERT INTO teams(name) VALUES('$OPPONENT')" > /dev/null
+OPPONENT_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$OPPONENT'")
+$PSQL "INSERT INTO games(year, round, winner_id, opponent_id, winner_goals, opponent_goals) VALUES($YEAR, '$ROUND', $WINNER_ID, $OPPONENT_ID, $WINNER_GOALS, $OPPONENT_GOALS)" > /dev/null
+IFS="," read -r YEAR ROUND WINNER OPPONENT WINNER_GOALS OPPONENT_GOALS
+ROUND=${ROUND//\'/\'\'}
+WINNER=${WINNER//\'/\'\'}
+OPPONENT=${OPPONENT//\'/\'\'}
+WINNER_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$WINNER'")
+[[ -z "$WINNER_ID" ]]
+OPPONENT_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$OPPONENT'")
+[[ -z "$OPPONENT_ID" ]]
+$PSQL "INSERT INTO teams(name) VALUES('$OPPONENT')" > /dev/null
+OPPONENT_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$OPPONENT'")
+$PSQL "INSERT INTO games(year, round, winner_id, opponent_id, winner_goals, opponent_goals) VALUES($YEAR, '$ROUND', $WINNER_ID, $OPPONENT_ID, $WINNER_GOALS, $OPPONENT_GOALS)" > /dev/null
+IFS="," read -r YEAR ROUND WINNER OPPONENT WINNER_GOALS OPPONENT_GOALS
+ROUND=${ROUND//\'/\'\'}
+WINNER=${WINNER//\'/\'\'}
+OPPONENT=${OPPONENT//\'/\'\'}
+WINNER_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$WINNER'")
+[[ -z "$WINNER_ID" ]]
+$PSQL "INSERT INTO teams(name) VALUES('$WINNER')" > /dev/null
+WINNER_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$WINNER'")
+OPPONENT_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$OPPONENT'")
+[[ -z "$OPPONENT_ID" ]]
+$PSQL "INSERT INTO games(year, round, winner_id, opponent_id, winner_goals, opponent_goals) VALUES($YEAR, '$ROUND', $WINNER_ID, $OPPONENT_ID, $WINNER_GOALS, $OPPONENT_GOALS)" > /dev/null
+IFS="," read -r YEAR ROUND WINNER OPPONENT WINNER_GOALS OPPONENT_GOALS
+ROUND=${ROUND//\'/\'\'}
+WINNER=${WINNER//\'/\'\'}
+OPPONENT=${OPPONENT//\'/\'\'}
+WINNER_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$WINNER'")
+[[ -z "$WINNER_ID" ]]
+$PSQL "INSERT INTO teams(name) VALUES('$WINNER')" > /dev/null
+WINNER_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$WINNER'")
+OPPONENT_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$OPPONENT'")
+[[ -z "$OPPONENT_ID" ]]
+$PSQL "INSERT INTO games(year, round, winner_id, opponent_id, winner_goals, opponent_goals) VALUES($YEAR, '$ROUND', $WINNER_ID, $OPPONENT_ID, $WINNER_GOALS, $OPPONENT_GOALS)" > /dev/null
+IFS="," read -r YEAR ROUND WINNER OPPONENT WINNER_GOALS OPPONENT_GOALS
+ROUND=${ROUND//\'/\'\'}
+WINNER=${WINNER//\'/\'\'}
+OPPONENT=${OPPONENT//\'/\'\'}
+WINNER_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$WINNER'")
+[[ -z "$WINNER_ID" ]]
+OPPONENT_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$OPPONENT'")
+[[ -z "$OPPONENT_ID" ]]
+$PSQL "INSERT INTO games(year, round, winner_id, opponent_id, winner_goals, opponent_goals) VALUES($YEAR, '$ROUND', $WINNER_ID, $OPPONENT_ID, $WINNER_GOALS, $OPPONENT_GOALS)" > /dev/null
+IFS="," read -r YEAR ROUND WINNER OPPONENT WINNER_GOALS OPPONENT_GOALS
+ROUND=${ROUND//\'/\'\'}
+WINNER=${WINNER//\'/\'\'}
+OPPONENT=${OPPONENT//\'/\'\'}
+WINNER_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$WINNER'")
+[[ -z "$WINNER_ID" ]]
+OPPONENT_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$OPPONENT'")
+[[ -z "$OPPONENT_ID" ]]
+$PSQL "INSERT INTO games(year, round, winner_id, opponent_id, winner_goals, opponent_goals) VALUES($YEAR, '$ROUND', $WINNER_ID, $OPPONENT_ID, $WINNER_GOALS, $OPPONENT_GOALS)" > /dev/null
+IFS="," read -r YEAR ROUND WINNER OPPONENT WINNER_GOALS OPPONENT_GOALS
+ROUND=${ROUND//\'/\'\'}
+WINNER=${WINNER//\'/\'\'}
+OPPONENT=${OPPONENT//\'/\'\'}
+WINNER_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$WINNER'")
+[[ -z "$WINNER_ID" ]]
+OPPONENT_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$OPPONENT'")
+[[ -z "$OPPONENT_ID" ]]
+$PSQL "INSERT INTO teams(name) VALUES('$OPPONENT')" > /dev/null
+OPPONENT_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$OPPONENT'")
+$PSQL "INSERT INTO games(year, round, winner_id, opponent_id, winner_goals, opponent_goals) VALUES($YEAR, '$ROUND', $WINNER_ID, $OPPONENT_ID, $WINNER_GOALS, $OPPONENT_GOALS)" > /dev/null
+IFS="," read -r YEAR ROUND WINNER OPPONENT WINNER_GOALS OPPONENT_GOALS
+ROUND=${ROUND//\'/\'\'}
+WINNER=${WINNER//\'/\'\'}
+OPPONENT=${OPPONENT//\'/\'\'}
+WINNER_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$WINNER'")
+[[ -z "$WINNER_ID" ]]
+OPPONENT_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$OPPONENT'")
+[[ -z "$OPPONENT_ID" ]]
+$PSQL "INSERT INTO games(year, round, winner_id, opponent_id, winner_goals, opponent_goals) VALUES($YEAR, '$ROUND', $WINNER_ID, $OPPONENT_ID, $WINNER_GOALS, $OPPONENT_GOALS)" > /dev/null
+IFS="," read -r YEAR ROUND WINNER OPPONENT WINNER_GOALS OPPONENT_GOALS
+ROUND=${ROUND//\'/\'\'}
+WINNER=${WINNER//\'/\'\'}
+OPPONENT=${OPPONENT//\'/\'\'}
+WINNER_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$WINNER'")
+[[ -z "$WINNER_ID" ]]
+OPPONENT_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$OPPONENT'")
+[[ -z "$OPPONENT_ID" ]]
+$PSQL "INSERT INTO games(year, round, winner_id, opponent_id, winner_goals, opponent_goals) VALUES($YEAR, '$ROUND', $WINNER_ID, $OPPONENT_ID, $WINNER_GOALS, $OPPONENT_GOALS)" > /dev/null
+IFS="," read -r YEAR ROUND WINNER OPPONENT WINNER_GOALS OPPONENT_GOALS
+ROUND=${ROUND//\'/\'\'}
+WINNER=${WINNER//\'/\'\'}
+OPPONENT=${OPPONENT//\'/\'\'}
+WINNER_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$WINNER'")
+[[ -z "$WINNER_ID" ]]
+OPPONENT_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$OPPONENT'")
+[[ -z "$OPPONENT_ID" ]]
+$PSQL "INSERT INTO games(year, round, winner_id, opponent_id, winner_goals, opponent_goals) VALUES($YEAR, '$ROUND', $WINNER_ID, $OPPONENT_ID, $WINNER_GOALS, $OPPONENT_GOALS)" > /dev/null
+IFS="," read -r YEAR ROUND WINNER OPPONENT WINNER_GOALS OPPONENT_GOALS
+ROUND=${ROUND//\'/\'\'}
+WINNER=${WINNER//\'/\'\'}
+OPPONENT=${OPPONENT//\'/\'\'}
+WINNER_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$WINNER'")
+[[ -z "$WINNER_ID" ]]
+OPPONENT_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$OPPONENT'")
+[[ -z "$OPPONENT_ID" ]]
+$PSQL "INSERT INTO teams(name) VALUES('$OPPONENT')" > /dev/null
+OPPONENT_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$OPPONENT'")
+$PSQL "INSERT INTO games(year, round, winner_id, opponent_id, winner_goals, opponent_goals) VALUES($YEAR, '$ROUND', $WINNER_ID, $OPPONENT_ID, $WINNER_GOALS, $OPPONENT_GOALS)" > /dev/null
+IFS="," read -r YEAR ROUND WINNER OPPONENT WINNER_GOALS OPPONENT_GOALS
+ROUND=${ROUND//\'/\'\'}
+WINNER=${WINNER//\'/\'\'}
+OPPONENT=${OPPONENT//\'/\'\'}
+WINNER_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$WINNER'")
+[[ -z "$WINNER_ID" ]]
+OPPONENT_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$OPPONENT'")
+[[ -z "$OPPONENT_ID" ]]
+$PSQL "INSERT INTO games(year, round, winner_id, opponent_id, winner_goals, opponent_goals) VALUES($YEAR, '$ROUND', $WINNER_ID, $OPPONENT_ID, $WINNER_GOALS, $OPPONENT_GOALS)" > /dev/null
+IFS="," read -r YEAR ROUND WINNER OPPONENT WINNER_GOALS OPPONENT_GOALS
+ROUND=${ROUND//\'/\'\'}
+WINNER=${WINNER//\'/\'\'}
+OPPONENT=${OPPONENT//\'/\'\'}
+WINNER_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$WINNER'")
+[[ -z "$WINNER_ID" ]]
+OPPONENT_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$OPPONENT'")
+[[ -z "$OPPONENT_ID" ]]
+$PSQL "INSERT INTO teams(name) VALUES('$OPPONENT')" > /dev/null
+OPPONENT_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$OPPONENT'")
+$PSQL "INSERT INTO games(year, round, winner_id, opponent_id, winner_goals, opponent_goals) VALUES($YEAR, '$ROUND', $WINNER_ID, $OPPONENT_ID, $WINNER_GOALS, $OPPONENT_GOALS)" > /dev/null
+IFS="," read -r YEAR ROUND WINNER OPPONENT WINNER_GOALS OPPONENT_GOALS
+ROUND=${ROUND//\'/\'\'}
+WINNER=${WINNER//\'/\'\'}
+OPPONENT=${OPPONENT//\'/\'\'}
+WINNER_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$WINNER'")
+[[ -z "$WINNER_ID" ]]
+OPPONENT_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$OPPONENT'")
+[[ -z "$OPPONENT_ID" ]]
+$PSQL "INSERT INTO teams(name) VALUES('$OPPONENT')" > /dev/null
+OPPONENT_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$OPPONENT'")
+$PSQL "INSERT INTO games(year, round, winner_id, opponent_id, winner_goals, opponent_goals) VALUES($YEAR, '$ROUND', $WINNER_ID, $OPPONENT_ID, $WINNER_GOALS, $OPPONENT_GOALS)" > /dev/null
+IFS="," read -r YEAR ROUND WINNER OPPONENT WINNER_GOALS OPPONENT_GOALS
+ROUND=${ROUND//\'/\'\'}
+WINNER=${WINNER//\'/\'\'}
+OPPONENT=${OPPONENT//\'/\'\'}
+WINNER_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$WINNER'")
+[[ -z "$WINNER_ID" ]]
+OPPONENT_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$OPPONENT'")
+[[ -z "$OPPONENT_ID" ]]
+$PSQL "INSERT INTO games(year, round, winner_id, opponent_id, winner_goals, opponent_goals) VALUES($YEAR, '$ROUND', $WINNER_ID, $OPPONENT_ID, $WINNER_GOALS, $OPPONENT_GOALS)" > /dev/null
+IFS="," read -r YEAR ROUND WINNER OPPONENT WINNER_GOALS OPPONENT_GOALS
+ROUND=${ROUND//\'/\'\'}
+WINNER=${WINNER//\'/\'\'}
+OPPONENT=${OPPONENT//\'/\'\'}
+WINNER_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$WINNER'")
+[[ -z "$WINNER_ID" ]]
+OPPONENT_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$OPPONENT'")
+[[ -z "$OPPONENT_ID" ]]
+$PSQL "INSERT INTO teams(name) VALUES('$OPPONENT')" > /dev/null
+OPPONENT_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$OPPONENT'")
+$PSQL "INSERT INTO games(year, round, winner_id, opponent_id, winner_goals, opponent_goals) VALUES($YEAR, '$ROUND', $WINNER_ID, $OPPONENT_ID, $WINNER_GOALS, $OPPONENT_GOALS)" > /dev/null
+IFS="," read -r YEAR ROUND WINNER OPPONENT WINNER_GOALS OPPONENT_GOALS
+ROUND=${ROUND//\'/\'\'}
+WINNER=${WINNER//\'/\'\'}
+OPPONENT=${OPPONENT//\'/\'\'}
+WINNER_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$WINNER'")
+[[ -z "$WINNER_ID" ]]
+OPPONENT_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$OPPONENT'")
+[[ -z "$OPPONENT_ID" ]]
+$PSQL "INSERT INTO games(year, round, winner_id, opponent_id, winner_goals, opponent_goals) VALUES($YEAR, '$ROUND', $WINNER_ID, $OPPONENT_ID, $WINNER_GOALS, $OPPONENT_GOALS)" > /dev/null
+IFS="," read -r YEAR ROUND WINNER OPPONENT WINNER_GOALS OPPONENT_GOALS
+ROUND=${ROUND//\'/\'\'}
+WINNER=${WINNER//\'/\'\'}
+OPPONENT=${OPPONENT//\'/\'\'}
+WINNER_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$WINNER'")
+[[ -z "$WINNER_ID" ]]
+OPPONENT_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$OPPONENT'")
+[[ -z "$OPPONENT_ID" ]]
+$PSQL "INSERT INTO teams(name) VALUES('$OPPONENT')" > /dev/null
+OPPONENT_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$OPPONENT'")
+$PSQL "INSERT INTO games(year, round, winner_id, opponent_id, winner_goals, opponent_goals) VALUES($YEAR, '$ROUND', $WINNER_ID, $OPPONENT_ID, $WINNER_GOALS, $OPPONENT_GOALS)" > /dev/null
+IFS="," read -r YEAR ROUND WINNER OPPONENT WINNER_GOALS OPPONENT_GOALS
+echo $PWD >> /workspace/project/.freeCodeCamp/test/.cwd
+history -a
+echo $PWD >> /workspace/project/.freeCodeCamp/test/.cwd
+history -a
+echo "Data imported successfully"
+echo $PWD >> /workspace/project/.freeCodeCamp/test/.cwd
+history -a
+echo $PWD >> /workspace/project/.freeCodeCamp/test/.cwd
+history -a
+echo $PWD >> /workspace/project/.freeCodeCamp/test/.cwd
+history -a
